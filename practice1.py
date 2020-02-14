@@ -1,3 +1,37 @@
+def is_leap(year):
+    return (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)
+print(is_leap(int(input()))
+
+def is_leap(year):
+    leap = False
+    if year % 400 == 0 and year % 100 != 0:
+        leap = True
+    elif year % 4 == 0:
+        leap = True
+    # Write your logic here
+    return leap
+
+year = int(input())
+print(is_leap(year))
+
+def is_leap(year):
+    leap = False
+    if year % 400 == 0:
+        leap = True
+    else:
+        if year % 100 == 0:
+            leap = leap
+        elif year % 4 == 0:
+            leap = True
+    # Write your logic here
+    
+    return leap
+
+year = int(input())
+print(is_leap(year))
+
+
+
 '''
 Task
 Given an integer, , perform the following conditional actions:
