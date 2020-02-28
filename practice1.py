@@ -1,3 +1,5 @@
+
+
 '''_ real _ '''
 # Make a interpolate function for pricing.
 # Constraints :
@@ -7,50 +9,68 @@
 # instances[i] < instances[j] , where 0 <= i < j < m
 
 def interpolate(n, instances, price):
-    m = len(instances)
-    unit_p = _
-    if n >= min(instances) and n <= max(instances):
-        if n in instances:
-            for i in range(len(instances)):
-                if instances[i] == n and price[i] > 0:
-                    unit_p = price[i]
-                else:
-                    continue
+    
+    # 1st, Check whether there is 0 or Negative values in price array or not.
+    
+    for elem in price:
+        if elem <= 0:
+            temp = price.index(elem)
+            del instances[temp]
+            print(instances)
+            del price[temp]
+            print(price)
+            continue
+        else:
+            price = price
+            continue
+    
+    print(instances)
+    print(price)
+    
+    # Now, we are free of price 0 or negative.
+    # 2nd, Check whether there is a value in instance maching "n".
 
-        else: 
-            for i in range(len(instances)):       
-                for elem in price:
-                    if elem == 0:
-                        temp = price.index(elem)
-                        del instances[temp]
-                        #print(instances)
-                        del price[temp]
-                        #print(price)
-                    else:
-                        continue
+    if (n in instances):
+        print("n is in the instances")
+        unit_p = price[instances.index(n)]
+        print('\n',unit_p)
+        
+    # if there isn't a value in instance maching "n"
+    # Check each cases where n < min(instances), 
+    # min(instances) < n < max(instances), and
+    # n > max(instances)
+    
+    elif (n > min(instances)) and (n < max(instances)):
+        print("n is not in the instances")
+        ind1 = _
+        for i in range(len(instances)-1):
+            if n > instances[i] and n < instances[i+1] :
+                ind1 = i
+                break
+            else:
+                continue
 
-            for i in range(len(instances)):
-                if n >= instances[i] and n <= instances[i+1] :
-                    ind1 = i
-                else:
-                    continue
-                    
-            slope1 = (price[ind1+1] - price[ind1]) / (instances[ind1+1] - instances[ind1])
-            a_1 = price[ind1] - slope1 * instances[ind1] 
-            unit_p = slope1*n + a_1    
-
+        slope_in = (price[ind1+1] - price[ind1]) / (instances[ind1+1] - instances[ind1])
+        a_in = price[ind1] - slope_in * instances[ind1] 
+        unit_p = slope_in*n + a_in 
+    
     elif n > max(instances):
+        m = len(instances)
+        print("n is larger than max value in the instances")
         slope_max = float(price[m-1] - price[m-2]) / (instances[m-1] - instances[m-2])
         a_max = float(price[m-1]) - slope_max * instances[m-1]
         unit_p = slope_max*n + a_max
 
     elif n < min(instances):
+        m = len(instances)
+        print("n is smaller than min value in the instances")
         slope_min = float(price[1] - price[0]) / (instances[1] - instances[0])
         a_min = float(price[0]) - slope_min * instances[0]
         unit_p = slope_min*n + a_min
     
-    #print('unit_p as original form:', unit_p)
+    # print('unit_p as original form:', unit_p)
     # Because in Python, round() works wierdly...
+    
     if (unit_p*1000 % 5 == 0) and (unit_p*1000 % 10 != 0): 
         unit_p = round(unit_p, 2) + 0.01
     else:
@@ -59,7 +79,7 @@ def interpolate(n, instances, price):
     print("{:.2f}".format(unit_p))
     pass
 
-'''Task Trial 2'''
+'''Task Trial 3'''
 def interpolate(n, instances, price):
     m = len(instances)
     unit_p = _
