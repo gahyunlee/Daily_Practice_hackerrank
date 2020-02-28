@@ -1,4 +1,61 @@
 
+
+
+''' # Task Trial 2 '''
+def interpolate(n, instances, price):
+    m = len(instances)
+    if n >= min(instances) and n <= max(instances):
+        if n in instances:
+            for i in range(len(instances)):
+                if instances[i] == n and price[i] > 0:
+                    unit_p = price[i]
+                    break
+                
+        else: 
+            for i in range(len(instances)):
+                #temp_ls = [round(0.1 * a, 1) for a in list(range(1,11))]
+       
+                for elem in price:
+                    if elem == 0:
+                        temp = price.index(elem)
+                        del instances[temp]
+                        print(instances)
+                        del price[temp]
+                        print(price)
+                    elif elem != 0:
+                        continue
+                    break
+                    
+                
+            print(instances)
+            print(price)
+            temp_lst = []
+            
+            for i in range(len(instances)):
+                a = abs(n - instances[i])
+                temp_lst.append(a)
+                print(temp_lst)
+            print(temp_lst.index(min(temp_lst)))
+            ind1 = instances.index(min(temp_lst))
+            slope1 = price[ind1+1] - price[ind1]/(instances[ind1+1] - instances[ind1])
+            a_1 = price[ind1] - price[ind1]*slope1
+            unit_p = slope1*n + a_1    
+
+    elif n > max(instances):
+        
+        slope_max = float(price[m-1] - price[m-2])/(instances[m-1] - instances[m-2])
+        a_max = float(price[m-1]) - slope_max * instances[m-1]
+        unit_p = slope_max*n + a_max
+
+    elif n < min(instances):
+        slope_min = float(price[1] - price[0])/(instances[1] - instances[0])
+        a_min = float(price[0]) - slope_min * instances[0]
+        unit_p = slope_min*n + a_min
+    #unit_p = round(unit_p,2)
+    print(round(unit_p*100/100,2))
+    #print('{:.2f}'.format(unit_p))
+    pass
+''' # Task trial 1 '''
 if n >= min(instances) and n <= max(instances):
     if n in instances:
         for i in range(len(instances)):
@@ -25,6 +82,7 @@ elif n < min(instances):
     slope_min = (price[1] - prices[0])/(instances[1] - instances[0])
     a_min = prices[0] - slope_min * instances[0]
     unit_p = slope*n + a_min
+''' Task end'''
 
 def is_leap(year):
     return (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)
