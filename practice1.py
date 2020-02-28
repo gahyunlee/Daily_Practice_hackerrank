@@ -1,3 +1,31 @@
+
+if n >= min(instances) and n <= max(instances):
+    if n in instances:
+        for i in range(len(instances)):
+            if instances[i] == n and price[i] > 0:
+                unit_p = prices[i]
+        break
+
+    else: 
+        temp_lst = []
+        for i in range(len(instances)):
+            a = abs(n - instances[i])
+            temp_lst.append(a)
+        ind1 = instances.index(min(temp_lst))
+        slope1 = (prices[ind1+1] - prices[ind1])/(instances[ind1+1] - instances[ind1])
+        a_1 = prices[ind1] - prices[ind1]*slope1
+        unit_p = slope1*n + a_1    
+            
+elif n > max(instances):
+    slope_max = (prices[m-1] - prices[m-2])/(instances[m-1] - instances[m-2])
+    a_max = prices[m-1] - slope_max * instances[m-1]
+    unit_p = slope*n + a_max
+    
+elif n < min(instances):
+    slope_min = (price[1] - prices[0])/(instances[1] - instances[0])
+    a_min = prices[0] - slope_min * instances[0]
+    unit_p = slope*n + a_min
+
 def is_leap(year):
     return (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)
 print(is_leap(int(input()))
