@@ -1,5 +1,58 @@
 
+'''_ real _ '''
+def interpolate(n, instances, price):
+    m = len(instances)
+    unit_p = _
+    if n >= min(instances) and n <= max(instances):
+        if n in instances:
+            for i in range(len(instances)):
+                if instances[i] == n and price[i] > 0:
+                    unit_p = price[i]
+                else:
+                    unit_p = unit_p
 
+        else: 
+            for i in range(len(instances)):       
+                for elem in price:
+                    if elem == 0:
+                        temp = price.index(elem)
+                        del instances[temp]
+                        #print(instances)
+                        del price[temp]
+                        #print(price)
+                    else:
+                        continue
+            ind1 = _
+            for i in range(len(instances)):
+                if n >= instances[i] and n <= instances[i+1] :
+                    ind1 = i
+                    
+                else:
+                    ind1 = ind1
+    
+            slope1 = (price[ind1+1] - price[ind1]) / (instances[ind1+1] - instances[ind1])
+            a_1 = price[ind1] - slope1 * instances[ind1] 
+            unit_p = slope1*n + a_1    
+
+    elif n > max(instances):
+        slope_max = float(price[m-1] - price[m-2]) / (instances[m-1] - instances[m-2])
+        a_max = float(price[m-1]) - slope_max * instances[m-1]
+        unit_p = slope_max*n + a_max
+
+    elif n < min(instances):
+        slope_min = float(price[1] - price[0]) / (instances[1] - instances[0])
+        a_min = float(price[0]) - slope_min * instances[0]
+        unit_p = slope_min*n + a_min
+    
+    print('unit_p as original form:', unit_p)
+    # Because in Python, round() works wierdly...
+    if (unit_p*1000 % 5 == 0) and (unit_p*1000 % 10 != 0): 
+        unit_p = round(unit_p, 2) + 0.01
+    else:
+        unit_p = round(unit_p, 2) 
+    
+    print(unit_p)
+    pass
 
 ''' # Task Trial 2 '''
 def interpolate(n, instances, price):
